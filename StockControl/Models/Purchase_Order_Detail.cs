@@ -1,0 +1,27 @@
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace StockControl.Models
+{
+    [Table("Purchase_Order_Detail")]
+    public partial class Purchase_Order_Detail
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int OrderID { get; set; }
+
+        public int ProductID { get; set; }
+
+        public int? Quantity { get; set; }
+
+        [Column(TypeName = "money")]
+        public decimal? Price { get; set; }
+
+        [ForeignKey("ProductID")]
+        public virtual Product Product { get; set; }
+
+        [ForeignKey("OrderID")]
+        public virtual Purchase_Order Purchase_Order { get; set; }
+    }
+}

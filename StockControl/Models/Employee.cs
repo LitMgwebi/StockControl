@@ -1,22 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace StockControl.Models
 {
+    [Table("Employee")]
     public partial class Employee
     {
         public Employee()
         {
-            PurchaseRequests = new HashSet<PurchaseRequest>();
+            Purchase_Request = new HashSet<Purchase_Request>();
         }
 
-        public int EmployeeId { get; set; }
-        public string? Gender { get; set; }
-        public string? GradeLevel { get; set; }
-        public int? DepartmentId { get; set; }
+        [Key]
+        public int EmployeeID { get; set; }
 
-        public virtual Department? Department { get; set; }
-        public virtual User EmployeeNavigation { get; set; } = null!;
-        public virtual ICollection<PurchaseRequest> PurchaseRequests { get; set; }
+        [StringLength(10)]
+        public string? Gender { get; set; }
+
+        [StringLength(10)]
+        public string? GradeLevel { get; set; }
+
+        public int? DepartmentID { get; set; }
+
+
+        [ForeignKey("DepartmentID")]
+        public virtual Department Department { get; set; }
+
+
+        [ForeignKey("EmployeeID")]
+        public virtual User User { get; set; }
+
+        public virtual ICollection<Purchase_Request> Purchase_Request { get; set; }
     }
 }

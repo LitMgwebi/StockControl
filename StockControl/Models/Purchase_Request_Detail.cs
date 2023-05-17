@@ -1,0 +1,23 @@
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace StockControl.Models
+{
+    [Table("Purchase_Request_Detail")]
+    public partial class Purchase_Request_Detail
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int RequestID { get; set; }
+
+        public int ProductID { get; set; }
+
+        public int? Quantity { get; set; }
+
+        [ForeignKey("ProductID")]
+        public virtual Product Product { get; set; }
+
+        [ForeignKey("RequestID")]
+        public virtual Purchase_Request Purchase_Request { get; set; }
+    }
+}

@@ -11,9 +11,9 @@ namespace StockControl.Controllers
 {
     public class SuppliersController : Controller
     {
-        private readonly Assignment3Context _context;
+        private readonly StockControlContext _context;
 
-        public SuppliersController(Assignment3Context context)
+        public SuppliersController(StockControlContext context)
         {
             _context = context;
         }
@@ -23,7 +23,7 @@ namespace StockControl.Controllers
         {
               return _context.Suppliers != null ? 
                           View(await _context.Suppliers.ToListAsync()) :
-                          Problem("Entity set 'Assignment3Context.Suppliers'  is null.");
+                          Problem("Entity set 'StockControlContext.Suppliers'  is null.");
         }
 
         // GET: Suppliers/Details/5
@@ -35,7 +35,7 @@ namespace StockControl.Controllers
             }
 
             var supplier = await _context.Suppliers
-                .FirstOrDefaultAsync(m => m.SupplierId == id);
+                .FirstOrDefaultAsync(m => m.SupplierID == id);
             if (supplier == null)
             {
                 return NotFound();
@@ -55,7 +55,7 @@ namespace StockControl.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SupplierId,SupplierName,SupplierEmail")] Supplier supplier)
+        public async Task<IActionResult> Create([Bind("SupplierID,SupplierName,SupplierEmail")] Supplier supplier)
         {
             if (ModelState.IsValid)
             {
@@ -87,9 +87,9 @@ namespace StockControl.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SupplierId,SupplierName,SupplierEmail")] Supplier supplier)
+        public async Task<IActionResult> Edit(int id, [Bind("SupplierID,SupplierName,SupplierEmail")] Supplier supplier)
         {
-            if (id != supplier.SupplierId)
+            if (id != supplier.SupplierID)
             {
                 return NotFound();
             }
@@ -103,7 +103,7 @@ namespace StockControl.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SupplierExists(supplier.SupplierId))
+                    if (!SupplierExists(supplier.SupplierID))
                     {
                         return NotFound();
                     }
@@ -126,7 +126,7 @@ namespace StockControl.Controllers
             }
 
             var supplier = await _context.Suppliers
-                .FirstOrDefaultAsync(m => m.SupplierId == id);
+                .FirstOrDefaultAsync(m => m.SupplierID == id);
             if (supplier == null)
             {
                 return NotFound();
@@ -142,7 +142,7 @@ namespace StockControl.Controllers
         {
             if (_context.Suppliers == null)
             {
-                return Problem("Entity set 'Assignment3Context.Suppliers'  is null.");
+                return Problem("Entity set 'StockControlContext.Suppliers'  is null.");
             }
             var supplier = await _context.Suppliers.FindAsync(id);
             if (supplier != null)
@@ -156,7 +156,7 @@ namespace StockControl.Controllers
 
         private bool SupplierExists(int id)
         {
-          return (_context.Suppliers?.Any(e => e.SupplierId == id)).GetValueOrDefault();
+          return (_context.Suppliers?.Any(e => e.SupplierID == id)).GetValueOrDefault();
         }
     }
 }

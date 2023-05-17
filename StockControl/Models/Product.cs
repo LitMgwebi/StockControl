@@ -1,25 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace StockControl.Models
 {
+    [Table("Product")]
     public partial class Product
     {
         public Product()
         {
-            PurchaseOrderDetails = new HashSet<PurchaseOrderDetail>();
-            PurchaseRequestDetails = new HashSet<PurchaseRequestDetail>();
+            Purchase_Order_Detail = new HashSet<Purchase_Order_Detail>();
+            Purchase_Request_Detail = new HashSet<Purchase_Request_Detail>();
         }
 
-        public int ProductId { get; set; }
-        public string? Barcode { get; set; }
-        public string? ProductName { get; set; }
-        public string? ProductDescription { get; set; }
-        public decimal? ProductPrice { get; set; }
-        public int? SupplierId { get; set; }
+        [Key]
+        public int ProductID { get; set; }
 
-        public virtual Supplier? Supplier { get; set; }
-        public virtual ICollection<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
-        public virtual ICollection<PurchaseRequestDetail> PurchaseRequestDetails { get; set; }
+        [StringLength(50)]
+        public string Barcode { get; set; }
+
+        [StringLength(50)]
+        public string ProductName { get; set; }
+
+        [StringLength(50)]
+        public string ProductDescription { get; set; }
+
+        [Column(TypeName = "money")]
+        public decimal? ProductPrice { get; set; }
+
+        public int? SupplierID { get; set; }
+
+        [ForeignKey("SupplierID")]
+        public virtual Supplier Supplier { get; set; }
+
+        public virtual ICollection<Purchase_Order_Detail> Purchase_Order_Detail { get; set; }
+
+        public virtual ICollection<Purchase_Request_Detail> Purchase_Request_Detail { get; set; }
     }
 }

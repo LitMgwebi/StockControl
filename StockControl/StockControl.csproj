@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-StockControl-3aaac8e9-6aae-4ce1-a593-2e551aae4330</UserSecretsId>
+    <UserSecretsId>aspnet-StockControl-20ce09e5-845a-492e-b1da-5170c2571915</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

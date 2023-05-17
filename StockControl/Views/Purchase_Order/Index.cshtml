@@ -1,4 +1,4 @@
-﻿@model IEnumerable<StockControl.Models.PurchaseOrder>
+﻿@model IEnumerable<StockControl.Models.Purchase_Order>
 
 @{
     ViewData["Title"] = "Index";
@@ -22,7 +22,7 @@
                 @Html.DisplayNameFor(model => model.PurchaseOrderProgress)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Request)
+                @Html.DisplayNameFor(model => model.Purchase_Request)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Supplier)
@@ -43,15 +43,15 @@
                 @Html.DisplayFor(modelItem => item.PurchaseOrderProgress)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Request.RequestId)
+                @Html.DisplayFor(modelItem => item.Purchase_Request.RequestID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Supplier.SupplierId)
+                @Html.DisplayFor(modelItem => item.Supplier.SupplierID)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.OrderId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.OrderId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.OrderID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.OrderID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.OrderID">Delete</a>
             </td>
         </tr>
 }
