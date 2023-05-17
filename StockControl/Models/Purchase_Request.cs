@@ -23,6 +23,13 @@ namespace StockControl.Models
         [StringLength(50)]
         public string PurchaseRequestStatus { get; set; }
 
+
+        [Column(TypeName = "money")]
+        public decimal? PurchaseRequestTotal { get; set; }
+
+        [Column(TypeName = "money")]
+        public decimal? PurchaseRequestSubTotal { get; set; }
+
         [ForeignKey("EmployeeID")]
         public virtual Employee Employee { get; set; }
 

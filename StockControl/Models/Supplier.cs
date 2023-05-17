@@ -17,8 +17,17 @@ namespace StockControl.Models
         [StringLength(50)]
         public string SupplierName { get; set; }
 
-        [StringLength(50)]
+        [EmailAddress]
         public string SupplierEmail { get; set; }
+
+        [Phone]
+        public int SupplierContactNumber { get; set; }
+
+        public string SupplierAddress { get; set; }
+
+        [Url]
+        public string SupplierUrl { get; set; }
+
 
         public virtual ICollection<Product> Products { get; set; }
 

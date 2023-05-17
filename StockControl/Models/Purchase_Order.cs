@@ -18,10 +18,15 @@ namespace StockControl.Models
         [Column(TypeName = "money")]
         public decimal? PurchaseOrderTotal { get; set; }
 
+        [Column(TypeName = "money")]
+        public decimal? PurchaseOrderSubTotal { get; set; }
+
         public int? SupplierID { get; set; }
 
         [StringLength(50)]
         public string? PurchaseOrderProgress { get; set; }
+
+        public string? Comment { get; set; }
 
 
         public virtual Purchase_Order_Detail Purchase_Order_Detail { get; set; }

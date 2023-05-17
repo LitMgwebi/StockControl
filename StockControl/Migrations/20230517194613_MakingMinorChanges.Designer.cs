@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StockControl.Models;
 
@@ -11,9 +12,10 @@ using StockControl.Models;
 namespace StockControl.Migrations
 {
     [DbContext(typeof(StockControlContext))]
-    partial class StockControlContextModelSnapshot : ModelSnapshot
+    [Migration("20230517194613_MakingMinorChanges")]
+    partial class MakingMinorChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
