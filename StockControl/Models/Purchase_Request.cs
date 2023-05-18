@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace StockControl.Models
 {
@@ -15,20 +16,24 @@ namespace StockControl.Models
         [Key]
         public int RequestID { get; set; }
 
+        [DisplayName("Date of Request")]
         [Column(TypeName = "date")]
         public DateTime? RequestDate { get; set; }
 
+        [DisplayName("Employee")]
         public int? EmployeeID { get; set; }
 
+        [DisplayName("Status")]
         [StringLength(50)]
         public string PurchaseRequestStatus { get; set; }
 
-
+        [DisplayName("Total")]
         [Column(TypeName = "money")]
         public decimal? PurchaseRequestTotal { get; set; }
 
+        [DisplayName("Subtotal")]
         [Column(TypeName = "money")]
-        public decimal? PurchaseRequestSubTotal { get; set; }
+        public decimal? PurchaseRequestSubtotal { get; set; }
 
         [ForeignKey("EmployeeID")]
         public virtual Employee Employee { get; set; }

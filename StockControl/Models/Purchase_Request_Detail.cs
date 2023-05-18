@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace StockControl.Models
 {
@@ -10,6 +11,7 @@ namespace StockControl.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int RequestID { get; set; }
 
+        [DisplayName("Product")]
         public int ProductID { get; set; }
 
         public int? Quantity { get; set; }

@@ -122,7 +122,7 @@ namespace StockControl.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<decimal?>("PurchaseOrderSubTotal")
+                    b.Property<decimal?>("PurchaseOrderSubtotal")
                         .HasColumnType("money");
 
                     b.Property<decimal?>("PurchaseOrderTotal")
@@ -182,7 +182,7 @@ namespace StockControl.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<decimal?>("PurchaseRequestSubTotal")
+                    b.Property<decimal?>("PurchaseRequestSubtotal")
                         .HasColumnType("money");
 
                     b.Property<decimal?>("PurchaseRequestTotal")
@@ -260,15 +260,21 @@ namespace StockControl.Migrations
                     b.Property<bool?>("Active")
                         .HasColumnType("bit");
 
+                    b.Property<int>("ContactNumber")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("date");
+
                     b.Property<string>("FirstName")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("LastName")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Surname")
+                    b.Property<string>("Password")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 

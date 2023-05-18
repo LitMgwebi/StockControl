@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace StockControl.Models
 {
@@ -14,17 +15,22 @@ namespace StockControl.Models
 
         public int SupplierID { get; set; }
 
+        [DisplayName("Name")]
         [StringLength(50)]
         public string SupplierName { get; set; }
 
+        [DisplayName("Email")]
         [EmailAddress]
         public string SupplierEmail { get; set; }
 
+        [DisplayName("Contact Number")]
         [Phone]
         public int SupplierContactNumber { get; set; }
 
+        [DisplayName("Address")]
         public string SupplierAddress { get; set; }
 
+        [DisplayName("Url")]
         [Url]
         public string SupplierUrl { get; set; }
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace StockControl.Models
 {
@@ -19,15 +20,19 @@ namespace StockControl.Models
         [StringLength(50)]
         public string Barcode { get; set; }
 
+        [DisplayName("Name")]
         [StringLength(50)]
         public string ProductName { get; set; }
 
+        [DisplayName("Description")]
         [StringLength(50)]
         public string ProductDescription { get; set; }
 
+        [DisplayName("Price")]
         [Column(TypeName = "money")]
         public decimal? ProductPrice { get; set; }
 
+        [DisplayName("Supplier")]
         public int? SupplierID { get; set; }
 
         [ForeignKey("SupplierID")]

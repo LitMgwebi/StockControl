@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace StockControl.Models
 {
@@ -17,9 +18,11 @@ namespace StockControl.Models
         [StringLength(10)]
         public string? Gender { get; set; }
 
+        [DisplayName("Grade Level")]
         [StringLength(10)]
         public string? GradeLevel { get; set; }
 
+        [DisplayName("Department")]
         public int? DepartmentID { get; set; }
 
 
