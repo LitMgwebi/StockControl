@@ -20,18 +20,18 @@ namespace StockControl.Models
         public string SupplierName { get; set; }
 
         [DisplayName("Email")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Please enter an email address")]
         public string SupplierEmail { get; set; }
 
         [DisplayName("Contact Number")]
-        [Phone]
+        [Phone(ErrorMessage = "Please enter a phone number")]
         public int SupplierContactNumber { get; set; }
 
         [DisplayName("Address")]
         public string SupplierAddress { get; set; }
 
         [DisplayName("Url")]
-        [Url]
+        [Url(ErrorMessage = "Please enter a proper URL.")]
         public string SupplierUrl { get; set; }
 
 

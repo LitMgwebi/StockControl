@@ -24,7 +24,7 @@ namespace StockControl.Controllers
         {
               return _context.Suppliers != null ? 
                           View(await _context.Suppliers.ToListAsync()) :
-                          Problem("Entity set 'StockControlContext.Suppliers'  is null.");
+                          Problem("Entity set 'ApplicationDbContext.Suppliers'  is null.");
         }
 
         // GET: Suppliers/Details/5
@@ -56,7 +56,7 @@ namespace StockControl.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SupplierID,SupplierName,SupplierEmail")] Supplier supplier)
+        public async Task<IActionResult> Create([Bind("SupplierID,SupplierName,SupplierEmail,SupplierContactNumber,SupplierAddress,SupplierUrl")] Supplier supplier)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +88,7 @@ namespace StockControl.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SupplierID,SupplierName,SupplierEmail")] Supplier supplier)
+        public async Task<IActionResult> Edit(int id, [Bind("SupplierID,SupplierName,SupplierEmail,SupplierContactNumber,SupplierAddress,SupplierUrl")] Supplier supplier)
         {
             if (id != supplier.SupplierID)
             {
@@ -143,7 +143,7 @@ namespace StockControl.Controllers
         {
             if (_context.Suppliers == null)
             {
-                return Problem("Entity set 'StockControlContext.Suppliers'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Suppliers'  is null.");
             }
             var supplier = await _context.Suppliers.FindAsync(id);
             if (supplier != null)

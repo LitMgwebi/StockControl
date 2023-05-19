@@ -15,7 +15,7 @@ namespace StockControl.Models
         public string? DepartmentName { get; set; }
 
         [DisplayName("Description")]
-        [StringLength(50)]
+        [StringLength(100)]
         public string? DepartmentDescription { get; set; }
 
         public virtual ICollection<Employee>? Employees { get; set; }
