@@ -19,9 +19,12 @@
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
                 <div class="form-floating">
-                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+                    <input asp-for="Input.Password" id="password" class="form-control" autocomplete="current-password" aria-required="true" />
                     <label asp-for="Input.Password" class="form-label"></label>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    <div>
+                        <input type="checkbox" onclick="ShowPassword()" /> Show Password
+                    </div>
                 </div>
                 <div>
                     <div class="checkbox">
@@ -79,7 +82,17 @@
         </section>
     </div>
 </div>
+<script>
+    function ShowPassword() {
+        var x = document.getElementById("password");
 
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

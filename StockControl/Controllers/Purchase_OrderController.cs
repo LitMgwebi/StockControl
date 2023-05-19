@@ -5,15 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using StockControl.Data;
 using StockControl.Models;
 
 namespace StockControl.Controllers
 {
     public class Purchase_OrderController : Controller
     {
-        private readonly StockControlContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public Purchase_OrderController(StockControlContext context)
+        public Purchase_OrderController(ApplicationDbContext context)
         {
             _context = context;
         }

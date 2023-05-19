@@ -21,7 +21,7 @@ namespace StockControl.Models
         public DateTime? RequestDate { get; set; }
 
         [DisplayName("Employee")]
-        public int? EmployeeID { get; set; }
+        public string? EmployeeID { get; set; }
 
         [DisplayName("Status")]
         [StringLength(50)]

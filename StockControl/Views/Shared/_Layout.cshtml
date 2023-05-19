@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> signInManager;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,6 +9,10 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/StockControl.styles.css" asp-append-version="true" />
+
+    <link href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+    <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 </head>
 <body>
     <header>
@@ -42,7 +48,9 @@
             @RenderBody()
         </main>
     </div>
-
+    <script>
+        let table = new DataTable('#myTable');
+    <script>
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2023 - StockControl - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>

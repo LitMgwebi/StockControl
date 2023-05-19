@@ -13,7 +13,7 @@ namespace StockControl.Models
         }
 
         [Key]
-        public int EmployeeID { get; set; }
+        public string EmployeeID { get; set; }
 
         [StringLength(10)]
         public string? Gender { get; set; }
