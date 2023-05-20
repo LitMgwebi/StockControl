@@ -48,7 +48,7 @@ namespace StockControl.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
-            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "SupplierID", "SupplierID");
+            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "SupplierID", "SupplierName");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace StockControl.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "SupplierID", "SupplierID", product.SupplierID);
+            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "SupplierID", "SupplierName", product.SupplierID);
             return View(product);
         }
 

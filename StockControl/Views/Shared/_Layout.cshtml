@@ -26,12 +26,24 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Suppliers" asp-action="Index">Supplier</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Purchase_Order" asp-action="Index">Purchase Order</a>
-                        </li>
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            @if (User.IsInRole("Admin") || User.IsInRole("Purchase"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Suppliers" asp-action="Index">Supplier</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Purchase_Order" asp-action="Index">Purchase Order</a>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Purchase_Request" asp-action="Index">Purchase Request</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Product</a>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -45,7 +57,7 @@
     </div>
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - StockControl - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; SithiApps2023 - Stock Control
         </div>
     </footer>
 
