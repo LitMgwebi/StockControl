@@ -25,11 +25,12 @@ namespace StockControl.Models
         public string ProductName { get; set; }
 
         [DisplayName("Description")]
-        [StringLength(50)]
+        [StringLength(100)]
         public string ProductDescription { get; set; }
 
         [DisplayName("Price")]
         [Column(TypeName = "money")]
+        [DisplayFormat(DataFormatString = "R {0:c}")]
         public decimal? ProductPrice { get; set; }
 
         [DisplayName("Supplier")]

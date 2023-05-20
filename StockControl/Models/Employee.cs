@@ -15,7 +15,7 @@ namespace StockControl.Models
         [Key]
         public string EmployeeID { get; set; }
 
-        [StringLength(10)]
+        [StringLength(30)]
         public string? Gender { get; set; }
 
         [DisplayName("Grade Level")]

@@ -18,21 +18,24 @@ namespace StockControl.Models
 
         [DisplayName("Date of Request")]
         [Column(TypeName = "date")]
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? RequestDate { get; set; }
 
         [DisplayName("Employee")]
         public string? EmployeeID { get; set; }
 
         [DisplayName("Status")]
-        [StringLength(50)]
+        [StringLength(50)]//InComplete, Complete, In Progress
         public string PurchaseRequestStatus { get; set; }
 
         [DisplayName("Total")]
         [Column(TypeName = "money")]
+        [DisplayFormat(DataFormatString = "R {0:c}")]
         public decimal? PurchaseRequestTotal { get; set; }
 
         [DisplayName("Subtotal")]
         [Column(TypeName = "money")]
+        [DisplayFormat(DataFormatString = "R {0:c}")]
         public decimal? PurchaseRequestSubtotal { get; set; }
 
         [ForeignKey("EmployeeID")]

@@ -24,8 +24,7 @@ namespace StockControl.Models
         public string SupplierEmail { get; set; }
 
         [DisplayName("Contact Number")]
-        [Phone(ErrorMessage = "Please enter a phone number")]
-        public int SupplierContactNumber { get; set; }
+        public string SupplierContactNumber { get; set; }
 
         [DisplayName("Address")]
         public string SupplierAddress { get; set; }

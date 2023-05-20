@@ -17,12 +17,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="SupplierEmail" class="control-label"></label>
-                <input asp-for="SupplierEmail" class="form-control" />
+                <input asp-for="SupplierEmail" class="form-control" type="email"/>
             </div>
             <div class="form-group">
                 <label asp-for="SupplierContactNumber" class="control-label"></label>
-                <input asp-for="SupplierContactNumber" class="form-control" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"  />
-                <small>Format: 000-000-0000</small>
+                <input asp-for="SupplierContactNumber" class="form-control" type="tel" pattern="([0-9]{3})[0-9]{3}-[0-9]{4}"  />
+                <small>Format: (000)000-0000</small>
                 <span asp-validation-for="SupplierContactNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -32,7 +32,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="SupplierUrl" class="control-label"></label>
-                <input asp-for="SupplierUrl" class="form-control" />
+                <input asp-for="SupplierUrl" class="form-control" placeholder="https://example.com" pattern="https://.*" />
                 <span asp-validation-for="SupplierUrl" class="text-danger"></span>
             </div>
             <div class="form-group">

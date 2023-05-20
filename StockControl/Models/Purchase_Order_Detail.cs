@@ -18,6 +18,7 @@ namespace StockControl.Models
         public int? Quantity { get; set; }
 
         [Column(TypeName = "money")]
+        [DisplayFormat(DataFormatString = "R {0:c}")]
         public decimal? Price { get; set; }
 
         [ForeignKey("ProductID")]
