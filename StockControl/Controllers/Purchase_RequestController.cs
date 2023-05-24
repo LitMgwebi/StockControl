@@ -48,7 +48,7 @@ namespace StockControl.Controllers
         // GET: Purchase_Request/Create
         public IActionResult Create()
         {
-            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmployeeID", "EmployeeID");
+            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmployeeID", "EmployeeName");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace StockControl.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmployeeID", "EmployeeID", purchase_Request.EmployeeID);
+            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmployeeID", "EmployeeName", purchase_Request.EmployeeID);
             return View(purchase_Request);
         }
 

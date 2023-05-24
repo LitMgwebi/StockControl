@@ -30,11 +30,10 @@ namespace StockControl.Models
 
         [DisplayName("Price")]
         [Column(TypeName = "money")]
-        [DisplayFormat(DataFormatString = "R {0:c}")]
-        public decimal? ProductPrice { get; set; }
+        public decimal ProductPrice { get; set; }
 
         [DisplayName("Supplier")]
-        public int? SupplierID { get; set; }
+        public int SupplierID { get; set; }
 
         [ForeignKey("SupplierID")]
         public virtual Supplier Supplier { get; set; }
