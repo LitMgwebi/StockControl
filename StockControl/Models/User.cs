@@ -18,6 +18,9 @@ namespace StockControl.Models
         [StringLength(50)]
         public string? FirstName { get; set; }
 
+        [StringLength(30)]
+        public string? Gender { get; set; }
+
         [StringLength(50)]
         public string? UserType { get; set; }
 
@@ -27,6 +30,6 @@ namespace StockControl.Models
 
         public bool? Active { get; set; }
 
-        public virtual Employee Employee { get; set; }
+        //public virtual Employee Employee { get; set; }
     }
 }

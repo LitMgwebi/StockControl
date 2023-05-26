@@ -39,7 +39,7 @@ namespace StockControl.Models
         public decimal? PurchaseRequestSubtotal { get; set; }
 
         [ForeignKey("EmployeeID")]
-        public virtual Employee Employee { get; set; }
+        public virtual User User { get; set; }
 
         public virtual ICollection<Purchase_Order> Purchase_Order { get; set; }
 
