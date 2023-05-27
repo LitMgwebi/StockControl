@@ -8,10 +8,6 @@ namespace StockControl.Models
     [Table("Department")]
     public partial class Department: IdentityRole
     {
-        [DisplayName("Name")]
-        [StringLength(50)]
-        public string? DepartmentName { get; set; }
-
         [DisplayName("Description")]
         [StringLength(100)]
         public string? DepartmentDescription { get; set; }

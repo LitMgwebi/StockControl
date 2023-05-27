@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StockControl.Data;
 
@@ -11,9 +12,10 @@ using StockControl.Data;
 namespace StockControl.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230527150105_RemoveDepartmentName")]
+    partial class RemoveDepartmentName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -200,7 +202,7 @@ namespace StockControl.Data.Migrations
 
                     b.HasIndex("SupplierID");
 
-                    b.ToTable("Product", (string)null);
+                    b.ToTable("Product");
                 });
 
             modelBuilder.Entity("StockControl.Models.Purchase_Order", b =>
@@ -240,7 +242,7 @@ namespace StockControl.Data.Migrations
 
                     b.HasIndex("SupplierID");
 
-                    b.ToTable("Purchase_Order", (string)null);
+                    b.ToTable("Purchase_Order");
                 });
 
             modelBuilder.Entity("StockControl.Models.Purchase_Order_Detail", b =>
@@ -261,7 +263,7 @@ namespace StockControl.Data.Migrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("Purchase_Order_Detail", (string)null);
+                    b.ToTable("Purchase_Order_Detail");
                 });
 
             modelBuilder.Entity("StockControl.Models.Purchase_Request", b =>
@@ -301,7 +303,7 @@ namespace StockControl.Data.Migrations
 
                     b.HasIndex("EmployeeUserId", "EmployeeRoleId");
 
-                    b.ToTable("Purchase_Request", (string)null);
+                    b.ToTable("Purchase_Request");
                 });
 
             modelBuilder.Entity("StockControl.Models.Purchase_Request_Detail", b =>
@@ -319,7 +321,7 @@ namespace StockControl.Data.Migrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("Purchase_Request_Detail", (string)null);
+                    b.ToTable("Purchase_Request_Detail");
                 });
 
             modelBuilder.Entity("StockControl.Models.Supplier", b =>
@@ -353,7 +355,7 @@ namespace StockControl.Data.Migrations
 
                     b.HasKey("SupplierID");
 
-                    b.ToTable("Supplier", (string)null);
+                    b.ToTable("Supplier");
                 });
 
             modelBuilder.Entity("StockControl.Models.User", b =>
