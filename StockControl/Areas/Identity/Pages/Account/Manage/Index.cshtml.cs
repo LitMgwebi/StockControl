@@ -3,12 +3,15 @@
 #nullable disable
 
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using StockControl.Models;
 
 namespace StockControl.Areas.Identity.Pages.Account.Manage
@@ -56,6 +59,21 @@ namespace StockControl.Areas.Identity.Pages.Account.Manage
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            [DisplayName("Last Name")]
+            [StringLength(50)]
+            public string LastName { get; set; }
+
+            [DisplayName("First Name")]
+            [StringLength(50)]
+            public string FirstName { get; set; }
+
+            [StringLength(30)]
+            public string Gender { get; set; }
+
+            [DisplayName("Date of Birth")]
+            [Column(TypeName = "date")]
+            public DateTime? DateOfBirth { get; set; }
+
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
@@ -70,6 +88,10 @@ namespace StockControl.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                DateOfBirth = user.DateOfBirth,
+                Gender = user.Gender,
                 PhoneNumber = phoneNumber
             };
         }
@@ -110,7 +132,23 @@ namespace StockControl.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
-
+            if (Input.FirstName != user.FirstName)
+            {
+                user.FirstName = Input.FirstName;
+            }
+            if (Input.DateOfBirth != user.DateOfBirth)
+            {
+                user.DateOfBirth = Input.DateOfBirth;
+            }
+            if (Input.LastName != user.LastName)
+            {
+                user.LastName = Input.LastName;
+            }
+            if (Input.Gender != user.Gender)
+            {
+                user.Gender = Input.Gender;
+            }
+            await _userManager.UpdateAsync(user);
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();

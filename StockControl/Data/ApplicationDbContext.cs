@@ -13,6 +13,7 @@ namespace StockControl.Data
             : base(options)
         {
         }
+ //       public virtual DbSet<Department> Department { get; set; }
         public virtual DbSet<Product>? Products { get; set; }
         public virtual DbSet<Purchase_Order>? Purchase_Order { get; set; }
         public virtual DbSet<Purchase_Order_Detail>? Purchase_Order_Detail { get; set; }

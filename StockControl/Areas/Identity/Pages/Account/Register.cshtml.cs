@@ -4,7 +4,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -17,6 +19,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Logging;
 using StockControl.Models;
 
@@ -75,6 +78,28 @@ namespace StockControl.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            [DataType(DataType.Text)]
+            [Required]
+            [DisplayName("Last Name")]
+            [StringLength(50)]
+            public string LastName { get; set; }
+
+            [DataType(DataType.Text)]
+            [Required]
+            [DisplayName("First Name")]
+            [StringLength(50)]
+            public string FirstName { get; set; }
+
+            [Required]
+            [StringLength(30)]
+            public string Gender { get; set; }
+
+            [Required]
+            [DisplayName("Date of Birth")]
+            [Column(TypeName = "date")]
+            [DataType(DataType.Date)]
+            public DateTime? DateOfBirth { get; set; }
+
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
@@ -114,6 +139,11 @@ namespace StockControl.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+
+                user.FirstName = Input.FirstName;
+                user.LastName = Input.LastName;
+                user.DateOfBirth = Input.DateOfBirth;
+                user.Gender = Input.Gender;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
