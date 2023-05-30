@@ -252,16 +252,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVyY2hhc2VfT3JkZXJfRGV0YWlsXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/lithi/OneDrive/Desktop/Github/StockControl/StockControl/Views/Purchase_Order_Detail/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVyY2hhc2VfT3JkZXJfRGV0YWlsXERldGFpbHMuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/lithi/OneDrive/Desktop/Github/StockControl/StockControl/Views/Purchase_Order_Detail/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVyY2hhc2VfT3JkZXJfRGV0YWlsXEVkaXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/lithi/OneDrive/Desktop/Github/StockControl/StockControl/Views/Purchase_Order_Detail/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVyY2hhc2VfT3JkZXJfRGV0YWlsXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/lithi/OneDrive/Desktop/Github/StockControl/StockControl/Views/Purchase_Request/Create.cshtml]
@@ -292,16 +284,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVyY2hhc2VfUmVxdWVzdF9EZXRhaWxcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/lithi/OneDrive/Desktop/Github/StockControl/StockControl/Views/Purchase_Request_Detail/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVyY2hhc2VfUmVxdWVzdF9EZXRhaWxcRGV0YWlscy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/lithi/OneDrive/Desktop/Github/StockControl/StockControl/Views/Purchase_Request_Detail/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVyY2hhc2VfUmVxdWVzdF9EZXRhaWxcRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/lithi/OneDrive/Desktop/Github/StockControl/StockControl/Views/Purchase_Request_Detail/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVyY2hhc2VfUmVxdWVzdF9EZXRhaWxcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/lithi/OneDrive/Desktop/Github/StockControl/StockControl/Views/Shared/Error.cshtml]

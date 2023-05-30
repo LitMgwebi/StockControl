@@ -34,30 +34,27 @@ namespace StockControl.Controllers
                 return NotFound();
             }
 
-            var purchase_Request = await _context.Purchase_Request
+            var request = await _context.Purchase_Request
                 .Include(p => p.User)
                 .FirstOrDefaultAsync(m => m.RequestID == id);
 
             var details = await _context.Purchase_Request_Detail
-                .Where(m => m.RequestID == id)
-                .FirstOrDefaultAsync(m => m.RequestID == id);
-            /*var purchase_Request = await _context.Purchase_Request
-                .Include(c => c.Purchase_Request_Detail)
-                .Where(i => i.RequestID == id)
-                .FirstOrDefaultAsync();*/
+                .Where(m=> m.RequestID == id)
+                .Include(p => p.Product)
+                .ToListAsync();
 
-            if (purchase_Request == null)
+            if (request == null)
             {
                 return NotFound();
             }
-            RequestViewModel request = new RequestViewModel
+            RequestViewModel purchase_Request = new RequestViewModel
             {
-                Purchase_Request = purchase_Request,
-                Request_Details = (IEnumerable<Purchase_Request_Detail>)details
+                Purchase_Request = request,
+                Request_Details = details
                 
             };
 
-            return View(request);
+            return View(purchase_Request);
         }
 
         // GET: Purchase_Request/Create

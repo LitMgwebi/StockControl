@@ -1,4 +1,4 @@
-﻿@model StockControl.Models.Purchase_Order
+﻿@model StockControl.Models.OrderViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -11,50 +11,87 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OrderDate)
+            @Html.DisplayNameFor(model => model.Purchase_Order.OrderDate)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OrderDate)
+            @Html.DisplayFor(model => model.Purchase_Order.OrderDate)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PurchaseOrderTotal)
+            @Html.DisplayNameFor(model => model.Purchase_Order.PurchaseOrderTotal)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PurchaseOrderTotal)
+            @Html.DisplayFor(model => model.Purchase_Order.PurchaseOrderTotal)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PurchaseOrderSubtotal)
+            @Html.DisplayNameFor(model => model.Purchase_Order.PurchaseOrderSubtotal)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PurchaseOrderSubtotal)
+            @Html.DisplayFor(model => model.Purchase_Order.PurchaseOrderSubtotal)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PurchaseOrderProgress)
+            @Html.DisplayNameFor(model => model.Purchase_Order.PurchaseOrderProgress)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PurchaseOrderProgress)
+            @Html.DisplayFor(model => model.Purchase_Order.PurchaseOrderProgress)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Comment)
+            @Html.DisplayNameFor(model => model.Purchase_Order.Comment)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Comment)
+            @Html.DisplayFor(model => model.Purchase_Order.Comment)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Purchase_Request)
+            @Html.DisplayNameFor(model => model.Purchase_Order.Purchase_Request)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Purchase_Request.RequestID)
+            @Html.DisplayFor(model => model.Purchase_Order.Purchase_Request.RequestID)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Supplier)
+            @Html.DisplayNameFor(model => model.Purchase_Order.Supplier)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Supplier.SupplierID)
+            @Html.DisplayFor(model => model.Purchase_Order.Supplier.SupplierName)
         </dd>
     </dl>
+    <table class="table" id="myTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Purchase_Order_Detail.Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Purchase_Order_Detail.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Purchase_Order_Detail.Product)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Order_Details)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.ProductName)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-controller="Purchase_Order_Detail" asp-route-id="@item.OrderID">Edit</a> |
+                        <a asp-action="Delete" asp-controller="Purchase_Order_Detail" asp-route-id="@item.OrderID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.OrderID">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model?.Purchase_Order.OrderID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

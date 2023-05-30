@@ -34,6 +34,6 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="RequestID" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Details" asp-controller="Purchase_Request" asp-route-id="@ViewBag.RequestID">Back</a>
     </form>
 </div>

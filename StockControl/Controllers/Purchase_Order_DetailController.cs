@@ -19,37 +19,10 @@ namespace StockControl.Controllers
             _context = context;
         }
 
-        // GET: Purchase_Order_Detail
-        public async Task<IActionResult> Index()
-        {
-            var applicationDbContext = _context.Purchase_Order_Detail.Include(p => p.Product).Include(p => p.Purchase_Order);
-            return View(await applicationDbContext.ToListAsync());
-        }
-
-        // GET: Purchase_Order_Detail/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Purchase_Order_Detail == null)
-            {
-                return NotFound();
-            }
-
-            var purchase_Order_Detail = await _context.Purchase_Order_Detail
-                .Include(p => p.Product)
-                .Include(p => p.Purchase_Order)
-                .FirstOrDefaultAsync(m => m.OrderID == id);
-            if (purchase_Order_Detail == null)
-            {
-                return NotFound();
-            }
-
-            return View(purchase_Order_Detail);
-        }
-
         // GET: Purchase_Order_Detail/Create
         public IActionResult Create(string OrderID)
         {
-            ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductID");
+            ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductName");
             ViewData["OrderID"] = OrderID;
             return View();
         }
@@ -65,9 +38,9 @@ namespace StockControl.Controllers
             await _context.SaveChangesAsync();
             //return RedirectToAction("Index", "Purchase_Order");
 
-            ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductID");
+            ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductName");
             ViewData["OrderID"] = purchase_Order_Detail.OrderID;
-            return View(   );
+            return View();
         }
 
         // GET: Purchase_Order_Detail/Edit/5
@@ -84,7 +57,7 @@ namespace StockControl.Controllers
                 return NotFound();
             }
             ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductID", purchase_Order_Detail.ProductID);
-            ViewData["OrderID"] = new SelectList(_context.Purchase_Order, "OrderID", "OrderID", purchase_Order_Detail.OrderID);
+            ViewData["OrderID"] = purchase_Order_Detail.OrderID;
             return View(purchase_Order_Detail);
         }
 
@@ -115,7 +88,7 @@ namespace StockControl.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Purchase_Order", new {id = purchase_Order_Detail.OrderID});
             /*ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductID", purchase_Order_Detail.ProductID);
             ViewData["OrderID"] = new SelectList(_context.Purchase_Order, "OrderID", "OrderID", purchase_Order_Detail.OrderID);
             return View(purchase_Order_Detail);*/
@@ -137,6 +110,7 @@ namespace StockControl.Controllers
             {
                 return NotFound();
             }
+            ViewData["OrderID"] = id;
 
             return View(purchase_Order_Detail);
         }
@@ -156,8 +130,9 @@ namespace StockControl.Controllers
                 _context.Purchase_Order_Detail.Remove(purchase_Order_Detail);
             }
 
+            ViewData["OrderID"] = id;
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "Purchase_Order", new { id = id });
         }
 
         private bool Purchase_Order_DetailExists(int id)

@@ -34,15 +34,25 @@ namespace StockControl.Controllers
                 return NotFound();
             }
 
-            var purchase_Order = await _context.Purchase_Order
+            var order = await _context.Purchase_Order
                 .Include(p => p.Purchase_Request)
                 .Include(p => p.Supplier)
                 .FirstOrDefaultAsync(m => m.OrderID == id);
-            if (purchase_Order == null)
+
+            var details = await _context.Purchase_Order_Detail
+                .Where(m => m.OrderID == id)
+                .Include(p => p.Product)
+                .ToListAsync();
+
+            if (order == null)
             {
                 return NotFound();
             }
-
+            OrderViewModel purchase_Order = new OrderViewModel
+            {
+                Purchase_Order = order,
+                Order_Details = details
+            };
             return View(purchase_Order);
         }
 

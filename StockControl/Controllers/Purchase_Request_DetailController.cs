@@ -19,34 +19,6 @@ namespace StockControl.Controllers
         {
             _context = context;
         }
-
-        // GET: Purchase_Request_Detail
-        public async Task<IActionResult> Index()
-        {
-            var applicationDbContext = _context.Purchase_Request_Detail.Include(p => p.Product).Include(p => p.Purchase_Request);
-            return View(await applicationDbContext.ToListAsync());
-        }
-
-        // GET: Purchase_Request_Detail/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Purchase_Request_Detail == null)
-            {
-                return NotFound();
-            }
-
-            var purchase_Request_Detail = await _context.Purchase_Request_Detail
-                .Include(p => p.Product)
-                .Include(p => p.Purchase_Request)
-                .FirstOrDefaultAsync(m => m.RequestID == id);
-            if (purchase_Request_Detail == null)
-            {
-                return NotFound();
-            }
-
-            return View(purchase_Request_Detail);
-        }
-
         // GET: Purchase_Request_Detail/Create
         public IActionResult Create(string RequestID)
         {
@@ -65,11 +37,11 @@ namespace StockControl.Controllers
             _context.Add(purchase_Request_Detail);
             await _context.SaveChangesAsync();
             //calculateTotals(purchase_Request_Detail.RequestID, purchase_Request_Detail.ProductID, purchase_Request_Detail.Quantity);
-            return RedirectToAction("Index", "Purchase_Request");
+            //return RedirectToAction("Index", "Purchase_Request");
 
-            /*ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductID", purchase_Request_Detail.ProductID);
-            ViewData["RequestID"] = new SelectList(_context.Purchase_Request, "RequestID", "RequestID", purchase_Request_Detail.RequestID);
-            return View(purchase_Request_Detail);*/
+            ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductName");
+            ViewData["RequestID"] = purchase_Request_Detail.RequestID;
+            return View();
         }
 
         // Have a method that generates a List everytime "Confirm" is pressed
@@ -89,7 +61,7 @@ namespace StockControl.Controllers
                 return NotFound();
             }
             ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductID", purchase_Request_Detail.ProductID);
-            ViewData["RequestID"] = new SelectList(_context.Purchase_Request, "RequestID", "RequestID", purchase_Request_Detail.RequestID);
+            ViewData["RequestID"] = purchase_Request_Detail.RequestID;
             return View(purchase_Request_Detail);
         }
 
@@ -105,29 +77,26 @@ namespace StockControl.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    _context.Update(purchase_Request_Detail);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!Purchase_Request_DetailExists(purchase_Request_Detail.RequestID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                _context.Update(purchase_Request_Detail);
+                await _context.SaveChangesAsync();
             }
-            ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductID", purchase_Request_Detail.ProductID);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!Purchase_Request_DetailExists(purchase_Request_Detail.RequestID))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction("Details", "Purchase_Request", new { id = purchase_Request_Detail.RequestID });
+            /*ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductID", purchase_Request_Detail.ProductID);
             ViewData["RequestID"] = new SelectList(_context.Purchase_Request, "RequestID", "RequestID", purchase_Request_Detail.RequestID);
-            return View(purchase_Request_Detail);
+            return View(purchase_Request_Detail);*/
         }
 
         // GET: Purchase_Request_Detail/Delete/5
@@ -146,7 +115,7 @@ namespace StockControl.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["RequestID"] = id;
             return View(purchase_Request_Detail);
         }
 
@@ -165,8 +134,9 @@ namespace StockControl.Controllers
                 _context.Purchase_Request_Detail.Remove(purchase_Request_Detail);
             }
 
+            ViewData["RequestID"] = id;
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "Purchase_Request", new { id = id });
         }
 
         public void calculateTotals(int requestId, int productID, int quantity)
