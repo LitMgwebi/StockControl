@@ -32,11 +32,24 @@ namespace StockControl.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Request_DetailID,RequestID,ProductID,Quantity")] Purchase_Request_Detail purchase_Request_Detail)
+        public async Task<IActionResult> Create([Bind("RequestID,ProductID,Quantity")] Purchase_Request_Detail purchase_Request_Detail)
         {
             _context.Add(purchase_Request_Detail);
+
+            var pr = await _context.Purchase_Request.FindAsync(purchase_Request_Detail.RequestID);
+            var product = await _context.Products.FindAsync(purchase_Request_Detail.ProductID);
+            decimal sub = pr.PurchaseRequestSubtotal.Value;
+            decimal total = pr.PurchaseRequestTotal.Value;
+            decimal productAmount = product.ProductPrice;
+
+            sub = sub + (purchase_Request_Detail.Quantity * productAmount);
+            total = total + sub + (sub * (decimal)tax);
+
+            pr.PurchaseRequestSubtotal = sub;
+            pr.PurchaseRequestTotal = total;
+            _context.Purchase_Request.Update(pr);
+
             await _context.SaveChangesAsync();
-            //calculateTotals(purchase_Request_Detail.RequestID, purchase_Request_Detail.ProductID, purchase_Request_Detail.Quantity);
             //return RedirectToAction("Index", "Purchase_Request");
 
             ViewData["ProductID"] = new SelectList(_context.Products.Where(m => m.IsDeleted == false), "ProductID", "ProductName");
@@ -70,7 +83,7 @@ namespace StockControl.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Request_DetailID,RequestID,ProductID,Quantity")] Purchase_Request_Detail purchase_Request_Detail)
+        public async Task<IActionResult> Edit(int id, [Bind("RequestID,ProductID,Quantity")] Purchase_Request_Detail purchase_Request_Detail)
         {
             if (id != purchase_Request_Detail.RequestID)
             {
@@ -139,24 +152,6 @@ namespace StockControl.Controllers
             ViewData["RequestID"] = id;
             await _context.SaveChangesAsync();
             return RedirectToAction("Details", "Purchase_Request", new { id = id });
-        }
-
-        public void calculateTotals(int requestId, int productID, int quantity)
-        {
-            decimal subTotal, productAmount, total;
-
-            var product = _context.Products.Find(productID);
-            var pr = _context.Purchase_Request.Find(requestId);
-
-            subTotal = (decimal)pr.PurchaseRequestSubtotal;
-            total = (decimal)pr.PurchaseRequestTotal;
-
-            subTotal = subTotal + (product.ProductPrice * quantity);
-            total = total + (subTotal * (decimal)tax);
-
-            pr.PurchaseRequestSubtotal = subTotal;
-            pr.PurchaseRequestTotal = total;
-
         }
 
         private bool Purchase_Request_DetailExists(int id)

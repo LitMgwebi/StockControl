@@ -30,6 +30,7 @@ namespace StockControl.Models
 
         [DisplayName("Price")]
         [Column(TypeName = "money")]
+        [DisplayFormat(DataFormatString = "{0:c}")]
         public decimal ProductPrice { get; set; }
 
         [DisplayName("Supplier")]

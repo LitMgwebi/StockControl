@@ -12,6 +12,7 @@ namespace StockControl.Controllers
 {
     public class Purchase_Order_DetailController : Controller
     {
+        private const double tax = 0.07;
         private readonly ApplicationDbContext _context;
 
         public Purchase_Order_DetailController(ApplicationDbContext context)
@@ -34,6 +35,21 @@ namespace StockControl.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("OrderID,ProductID,Quantity,Price")] Purchase_Order_Detail purchase_Order_Detail)
         {
+            var po = await _context.Purchase_Order.FindAsync(purchase_Order_Detail.OrderID);
+            var product = await _context.Products.FindAsync(purchase_Order_Detail.ProductID);
+            decimal sub = po.PurchaseOrderSubtotal.Value;
+            decimal total = po.PurchaseOrderTotal.Value;
+            decimal productAmount = product.ProductPrice;
+
+            decimal price = (decimal)purchase_Order_Detail.Quantity * productAmount;
+            sub = sub + price;
+            total = total + sub + (sub * (decimal)tax);
+
+            po.PurchaseOrderSubtotal = sub;
+            po.PurchaseOrderTotal = total;
+            purchase_Order_Detail.Price = price;
+
+            _context.Purchase_Order.Update(po);
             _context.Add(purchase_Order_Detail);
             await _context.SaveChangesAsync();
             //return RedirectToAction("Index", "Purchase_Order");

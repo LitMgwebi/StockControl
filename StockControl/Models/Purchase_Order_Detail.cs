@@ -18,7 +18,7 @@ namespace StockControl.Models
         public int? Quantity { get; set; }
 
         [Column(TypeName = "money")]
-        [DisplayFormat(DataFormatString = "R {0:c}")]
+        [DisplayFormat(DataFormatString = "{0:c}")]
         public decimal? Price { get; set; }
 
         public bool IsDeleted { get; set; } = false;

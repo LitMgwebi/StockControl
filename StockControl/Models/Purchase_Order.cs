@@ -20,19 +20,19 @@ namespace StockControl.Models
 
         [DisplayName("Total")]
         [Column(TypeName = "money")]
-        [DisplayFormat(DataFormatString = "R {0:c}")]
+        [DisplayFormat(DataFormatString = "{0:c}")]
         public decimal? PurchaseOrderTotal { get; set; }
 
         [DisplayName("Subtotal")]
         [Column(TypeName = "money")]
-        [DisplayFormat(DataFormatString = "R {0:c}")]
+        [DisplayFormat(DataFormatString = "{0:c}")]
         public decimal? PurchaseOrderSubtotal { get; set; }
 
         [DisplayName("Supplier")]
         public int? SupplierID { get; set; }
 
         [DisplayName("Progress")]
-        [StringLength(50)]//InComplete, Complete, In Progress
+        [StringLength(50)]
         public string? PurchaseOrderProgress { get; set; }
 
         public string? Comment { get; set; }

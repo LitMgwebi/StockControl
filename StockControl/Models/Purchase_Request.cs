@@ -30,12 +30,12 @@ namespace StockControl.Models
 
         [DisplayName("Total")]
         [Column(TypeName = "money")]
-        [DisplayFormat(DataFormatString = "R {0:c}")]
+        [DisplayFormat(DataFormatString = "{0:c}")]
         public decimal? PurchaseRequestTotal { get; set; }
 
         [DisplayName("Subtotal")]
         [Column(TypeName = "money")]
-        [DisplayFormat(DataFormatString = "R {0:c}")]
+        [DisplayFormat(DataFormatString = "{0:c}")]
         public decimal? PurchaseRequestSubtotal { get; set; }
 
         public bool IsDeleted { get; set; } = false;
