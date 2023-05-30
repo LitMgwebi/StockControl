@@ -1,5 +1,4 @@
-﻿@model StockControl.Models.Purchase_Request
-
+﻿@model StockControl.Models.RequestViewModel
 @{
     ViewData["Title"] = "Details";
 }
@@ -11,38 +10,73 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RequestDate)
+            @Html.DisplayNameFor(model => model.Purchase_Request.RequestDate)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RequestDate)
+            @Html.DisplayFor(model => model.Purchase_Request.RequestDate)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PurchaseRequestStatus)
+            @Html.DisplayNameFor(model => model.Purchase_Request.PurchaseRequestStatus)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PurchaseRequestStatus)
+            @Html.DisplayFor(model => model.Purchase_Request.PurchaseRequestStatus)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PurchaseRequestTotal)
+            @Html.DisplayNameFor(model => model.Purchase_Request.PurchaseRequestTotal)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PurchaseRequestTotal)
+            @Html.DisplayFor(model => model.Purchase_Request.PurchaseRequestTotal)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PurchaseRequestSubtotal)
+            @Html.DisplayNameFor(model => model.Purchase_Request.PurchaseRequestSubtotal)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PurchaseRequestSubtotal)
+            @Html.DisplayFor(model => model.Purchase_Request.PurchaseRequestSubtotal)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
+            @Html.DisplayNameFor(model => model.Purchase_Request.User)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.Id)
+            @Html.DisplayFor(model => model.Purchase_Request.User.FirstName)
+            @Html.DisplayFor(model => model.Purchase_Request.User.LastName)
         </dd>
     </dl>
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Quantity
+                    </th>
+                    <th>
+                        Product
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Request_Details)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Product.ProductName)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.RequestID">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.RequestID">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.RequestID">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.RequestID">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model?Purchase_Request.RequestID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

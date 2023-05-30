@@ -14,7 +14,7 @@ namespace StockControl.Models
         [DisplayName("Product")]
         public int ProductID { get; set; }
 
-        public int? Quantity { get; set; }
+        public int Quantity { get; set; }
 
         [ForeignKey("ProductID")]
         public virtual Product Product { get; set; }

@@ -37,18 +37,35 @@ namespace StockControl.Controllers
             var purchase_Request = await _context.Purchase_Request
                 .Include(p => p.User)
                 .FirstOrDefaultAsync(m => m.RequestID == id);
+
+            var details = await _context.Purchase_Request_Detail
+                .Where(m => m.RequestID == id)
+                .FirstOrDefaultAsync(m => m.RequestID == id);
+            /*var purchase_Request = await _context.Purchase_Request
+                .Include(c => c.Purchase_Request_Detail)
+                .Where(i => i.RequestID == id)
+                .FirstOrDefaultAsync();*/
+
             if (purchase_Request == null)
             {
                 return NotFound();
             }
+            RequestViewModel request = new RequestViewModel
+            {
+                Purchase_Request = purchase_Request,
+                Request_Details = (IEnumerable<Purchase_Request_Detail>)details
+                
+            };
 
-            return View(purchase_Request);
+            return View(request);
         }
 
         // GET: Purchase_Request/Create
         public IActionResult Create()
         {
             ViewData["EmployeeID"] = new SelectList(_context.Users, "Id", "FirstName");
+            var date = DateTime.Now;
+            ViewData["CurrentDate"] = date;
             return View();
         }
 
@@ -59,14 +76,11 @@ namespace StockControl.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("RequestID,RequestDate,EmployeeID,PurchaseRequestStatus,PurchaseRequestTotal,PurchaseRequestSubtotal")] Purchase_Request purchase_Request)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(purchase_Request);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["EmployeeID"] = new SelectList(_context.Users, "Id", "FirstName", purchase_Request.EmployeeID);
-            return View(purchase_Request);
+            _context.Add(purchase_Request);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Create", "Purchase_Request_Detail", new { RequestID = purchase_Request.RequestID });
+            /*ViewData["EmployeeID"] = new SelectList(_context.Users, "Id", "FirstName", purchase_Request.EmployeeID);
+            return View(purchase_Request);*/
         }
 
         // GET: Purchase_Request/Edit/5
@@ -98,28 +112,25 @@ namespace StockControl.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    _context.Update(purchase_Request);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!Purchase_RequestExists(purchase_Request.RequestID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                _context.Update(purchase_Request);
+                await _context.SaveChangesAsync();
             }
-            ViewData["EmployeeID"] = new SelectList(_context.Users, "Id", "Id", purchase_Request.EmployeeID);
-            return View(purchase_Request);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!Purchase_RequestExists(purchase_Request.RequestID))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
+            /*ViewData["EmployeeID"] = new SelectList(_context.Users, "Id", "Id", purchase_Request.EmployeeID);
+            return View(purchase_Request);*/
         }
 
         // GET: Purchase_Request/Delete/5
@@ -155,14 +166,14 @@ namespace StockControl.Controllers
             {
                 _context.Purchase_Request.Remove(purchase_Request);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool Purchase_RequestExists(int id)
         {
-          return (_context.Purchase_Request?.Any(e => e.RequestID == id)).GetValueOrDefault();
+            return (_context.Purchase_Request?.Any(e => e.RequestID == id)).GetValueOrDefault();
         }
     }
 }

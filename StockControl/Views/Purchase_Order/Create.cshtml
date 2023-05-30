@@ -12,9 +12,10 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="OrderID" type="hidden" value="ViewBag.OrderID" />
             <div class="form-group">
                 <label asp-for="OrderDate" class="control-label"></label>
-                <input asp-for="OrderDate" class="form-control" />
+                <input asp-for="OrderDate" type="datetime" class="form-control" value="@ViewBag.CurrentDate" readonly />
                 <span asp-validation-for="OrderDate" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -23,12 +24,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="PurchaseOrderTotal" class="control-label"></label>
-                <input asp-for="PurchaseOrderTotal" class="form-control" />
+                <input asp-for="PurchaseOrderTotal" class="form-control" value="0" readonly />
                 <span asp-validation-for="PurchaseOrderTotal" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PurchaseOrderSubtotal" class="control-label"></label>
-                <input asp-for="PurchaseOrderSubtotal" class="form-control" />
+                <input asp-for="PurchaseOrderSubtotal" class="form-control" value="0" readonly />
                 <span asp-validation-for="PurchaseOrderSubtotal" class="text-danger"></span>
             </div>
             <div class="form-group">

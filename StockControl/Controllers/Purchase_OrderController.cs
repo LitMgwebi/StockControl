@@ -51,6 +51,8 @@ namespace StockControl.Controllers
         {
             ViewData["RequestID"] = new SelectList(_context.Purchase_Request, "RequestID", "RequestID");
             ViewData["SupplierID"] = new SelectList(_context.Suppliers, "SupplierID", "SupplierID");
+            var date = DateTime.Now;
+            ViewData["CurrentDate"] = date;
             return View();
         }
 
@@ -61,15 +63,12 @@ namespace StockControl.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("OrderID,OrderDate,RequestID,PurchaseOrderTotal,PurchaseOrderSubtotal,SupplierID,PurchaseOrderProgress,Comment")] Purchase_Order purchase_Order)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(purchase_Order);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["RequestID"] = new SelectList(_context.Purchase_Request, "RequestID", "RequestID", purchase_Order.RequestID);
+            _context.Add(purchase_Order);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Create", "Purchase_Order_Detail", new {OrderID = purchase_Order.OrderID});
+            /*ViewData["RequestID"] = new SelectList(_context.Purchase_Request, "RequestID", "RequestID", purchase_Order.RequestID);
             ViewData["SupplierID"] = new SelectList(_context.Suppliers, "SupplierID", "SupplierID", purchase_Order.SupplierID);
-            return View(purchase_Order);
+            return View(purchase_Order);*/
         }
 
         // GET: Purchase_Order/Edit/5
@@ -102,29 +101,26 @@ namespace StockControl.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    _context.Update(purchase_Order);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!Purchase_OrderExists(purchase_Order.OrderID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                _context.Update(purchase_Order);
+                await _context.SaveChangesAsync();
             }
-            ViewData["RequestID"] = new SelectList(_context.Purchase_Request, "RequestID", "RequestID", purchase_Order.RequestID);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!Purchase_OrderExists(purchase_Order.OrderID))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
+            /*ViewData["RequestID"] = new SelectList(_context.Purchase_Request, "RequestID", "RequestID", purchase_Order.RequestID);
             ViewData["SupplierID"] = new SelectList(_context.Suppliers, "SupplierID", "SupplierID", purchase_Order.SupplierID);
-            return View(purchase_Order);
+            return View(purchase_Order);*/
         }
 
         // GET: Purchase_Order/Delete/5
@@ -161,14 +157,14 @@ namespace StockControl.Controllers
             {
                 _context.Purchase_Order.Remove(purchase_Order);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool Purchase_OrderExists(int id)
         {
-          return (_context.Purchase_Order?.Any(e => e.OrderID == id)).GetValueOrDefault();
+            return (_context.Purchase_Order?.Any(e => e.OrderID == id)).GetValueOrDefault();
         }
     }
 }
