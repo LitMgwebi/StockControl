@@ -33,6 +33,7 @@ namespace StockControl.Models
         [Url(ErrorMessage = "Please enter a proper URL.")]
         public string SupplierUrl { get; set; }
 
+        public bool IsDeleted { get; set; } = false;
 
         public virtual ICollection<Product> Products { get; set; }
 

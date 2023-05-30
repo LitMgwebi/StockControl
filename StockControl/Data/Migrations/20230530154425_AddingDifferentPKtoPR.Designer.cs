@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StockControl.Data;
 
@@ -11,9 +12,10 @@ using StockControl.Data;
 namespace StockControl.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230530154425_AddingDifferentPKtoPR")]
+    partial class AddingDifferentPKtoPR
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -318,7 +320,7 @@ namespace StockControl.Data.Migrations
 
             modelBuilder.Entity("StockControl.Models.Purchase_Request_Detail", b =>
                 {
-                    b.Property<int>("RequestID")
+                    b.Property<int>("Request_DetailID")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
@@ -330,9 +332,15 @@ namespace StockControl.Data.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("RequestID");
+                    b.Property<int>("RequestID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Request_DetailID");
 
                     b.HasIndex("ProductID");
+
+                    b.HasIndex("RequestID")
+                        .IsUnique();
 
                     b.ToTable("Purchase_Request_Detail");
                 });

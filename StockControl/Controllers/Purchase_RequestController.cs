@@ -22,7 +22,9 @@ namespace StockControl.Controllers
         // GET: Purchase_Request
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Purchase_Request.Include(p => p.User);
+            var applicationDbContext = _context.Purchase_Request
+                .Where(m => m.IsDeleted == false)
+                .Include(p => p.User);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -39,6 +41,7 @@ namespace StockControl.Controllers
                 .FirstOrDefaultAsync(m => m.RequestID == id);
 
             var details = await _context.Purchase_Request_Detail
+                .Where(m => m.IsDeleted == false)
                 .Where(m=> m.RequestID == id)
                 .Include(p => p.Product)
                 .ToListAsync();
@@ -93,7 +96,7 @@ namespace StockControl.Controllers
             {
                 return NotFound();
             }
-            ViewData["EmployeeID"] = new SelectList(_context.Users, "Id", "Id", purchase_Request.EmployeeID);
+            ViewData["EmployeeID"] = new SelectList(_context.Users, "Id", "FirstName", purchase_Request.EmployeeID);
             return View(purchase_Request);
         }
 
@@ -161,7 +164,9 @@ namespace StockControl.Controllers
             var purchase_Request = await _context.Purchase_Request.FindAsync(id);
             if (purchase_Request != null)
             {
-                _context.Purchase_Request.Remove(purchase_Request);
+                //_context.Purchase_Request.Remove(purchase_Request);
+                purchase_Request.IsDeleted = true;
+                _context.Purchase_Request.Update(purchase_Request);
             }
 
             await _context.SaveChangesAsync();

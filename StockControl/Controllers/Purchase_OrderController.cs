@@ -22,7 +22,10 @@ namespace StockControl.Controllers
         // GET: Purchase_Order
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Purchase_Order.Include(p => p.Purchase_Request).Include(p => p.Supplier);
+            var applicationDbContext = _context.Purchase_Order
+                .Where(m => m.IsDeleted == false)
+                .Include(p => p.Purchase_Request)
+                .Include(p => p.Supplier);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -40,6 +43,7 @@ namespace StockControl.Controllers
                 .FirstOrDefaultAsync(m => m.OrderID == id);
 
             var details = await _context.Purchase_Order_Detail
+                .Where(m => m.IsDeleted == false)
                 .Where(m => m.OrderID == id)
                 .Include(p => p.Product)
                 .ToListAsync();
@@ -59,8 +63,8 @@ namespace StockControl.Controllers
         // GET: Purchase_Order/Create
         public IActionResult Create()
         {
-            ViewData["RequestID"] = new SelectList(_context.Purchase_Request, "RequestID", "RequestID");
-            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "SupplierID", "SupplierID");
+            ViewData["RequestID"] = new SelectList(_context.Purchase_Request.Where(m => m.IsDeleted == false), "RequestID", "RequestID");
+            ViewData["SupplierID"] = new SelectList(_context.Suppliers.Where(m => m.IsDeleted == false), "SupplierID", "SupplierID");
             var date = DateTime.Now;
             ViewData["CurrentDate"] = date;
             return View();
@@ -94,8 +98,8 @@ namespace StockControl.Controllers
             {
                 return NotFound();
             }
-            ViewData["RequestID"] = new SelectList(_context.Purchase_Request, "RequestID", "RequestID", purchase_Order.RequestID);
-            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "SupplierID", "SupplierID", purchase_Order.SupplierID);
+            ViewData["RequestID"] = new SelectList(_context.Purchase_Request.Where(m => m.IsDeleted == false), "RequestID", "RequestID", purchase_Order.RequestID);
+            ViewData["SupplierID"] = new SelectList(_context.Suppliers.Where(m => m.IsDeleted == false), "SupplierID", "SupplierID", purchase_Order.SupplierID);
             return View(purchase_Order);
         }
 
@@ -165,7 +169,9 @@ namespace StockControl.Controllers
             var purchase_Order = await _context.Purchase_Order.FindAsync(id);
             if (purchase_Order != null)
             {
-                _context.Purchase_Order.Remove(purchase_Order);
+                //_context.Purchase_Order.Remove(purchase_Order);
+                purchase_Order.IsDeleted = true;
+                _context.Purchase_Order.Update(purchase_Order);
             }
 
             await _context.SaveChangesAsync();

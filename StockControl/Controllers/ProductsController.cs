@@ -24,7 +24,9 @@ namespace StockControl.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Products.Include(p => p.Supplier);
+            var applicationDbContext = _context.Products
+                .Where(m => m.IsDeleted == false)
+                .Include(p => p.Supplier);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -50,7 +52,7 @@ namespace StockControl.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
-            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "SupplierID", "SupplierName");
+            ViewData["SupplierID"] = new SelectList(_context.Suppliers.Where(m => m.IsDeleted == false), "SupplierID", "SupplierName");
             return View();
         }
 
@@ -81,7 +83,7 @@ namespace StockControl.Controllers
             {
                 return NotFound();
             }
-            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "SupplierID", "SupplierID", product.SupplierID);
+            ViewData["SupplierID"] = new SelectList(_context.Suppliers.Where(m => m.IsDeleted == false), "SupplierID", "SupplierID", product.SupplierID);
             return View(product);
         }
 
@@ -149,7 +151,9 @@ namespace StockControl.Controllers
             var product = await _context.Products.FindAsync(id);
             if (product != null)
             {
-                _context.Products.Remove(product);
+                //_context.Products.Remove(product);
+                product.IsDeleted = true;
+                _context.Products.Update(product);
             }
 
             await _context.SaveChangesAsync();

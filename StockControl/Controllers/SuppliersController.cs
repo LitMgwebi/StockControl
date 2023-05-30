@@ -25,7 +25,9 @@ namespace StockControl.Controllers
         public async Task<IActionResult> Index()
         {
               return _context.Suppliers != null ? 
-                          View(await _context.Suppliers.ToListAsync()) :
+                          View(await _context.Suppliers
+                            .Where(m => m.IsDeleted == false)
+                            .ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Suppliers'  is null.");
         }
 
@@ -97,8 +99,6 @@ namespace StockControl.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
                 try
                 {
                     _context.Update(supplier);
@@ -116,8 +116,7 @@ namespace StockControl.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
-            return View(supplier);
+            //return View(supplier);
         }
 
         // GET: Suppliers/Delete/5
@@ -150,7 +149,9 @@ namespace StockControl.Controllers
             var supplier = await _context.Suppliers.FindAsync(id);
             if (supplier != null)
             {
-                _context.Suppliers.Remove(supplier);
+                //_context.Suppliers.Remove(supplier);
+                supplier.IsDeleted = true;
+                _context.Suppliers.Update(supplier);
             }
             
             await _context.SaveChangesAsync();

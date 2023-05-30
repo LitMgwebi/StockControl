@@ -22,7 +22,7 @@ namespace StockControl.Controllers
         // GET: Purchase_Request_Detail/Create
         public IActionResult Create(string RequestID)
         {
-            ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductName");
+            ViewData["ProductID"] = new SelectList(_context.Products.Where(m => m.IsDeleted == false), "ProductID", "ProductName");
             ViewData["RequestID"] = RequestID;
             return View();
         }
@@ -32,14 +32,14 @@ namespace StockControl.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RequestID,ProductID,Quantity")] Purchase_Request_Detail purchase_Request_Detail)
+        public async Task<IActionResult> Create([Bind("Request_DetailID,RequestID,ProductID,Quantity")] Purchase_Request_Detail purchase_Request_Detail)
         {
             _context.Add(purchase_Request_Detail);
             await _context.SaveChangesAsync();
             //calculateTotals(purchase_Request_Detail.RequestID, purchase_Request_Detail.ProductID, purchase_Request_Detail.Quantity);
             //return RedirectToAction("Index", "Purchase_Request");
 
-            ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductName");
+            ViewData["ProductID"] = new SelectList(_context.Products.Where(m => m.IsDeleted == false), "ProductID", "ProductName");
             ViewData["RequestID"] = purchase_Request_Detail.RequestID;
             return View();
         }
@@ -60,7 +60,7 @@ namespace StockControl.Controllers
             {
                 return NotFound();
             }
-            ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductID", purchase_Request_Detail.ProductID);
+            ViewData["ProductID"] = new SelectList(_context.Products.Where(m => m.IsDeleted == false), "ProductID", "ProductID", purchase_Request_Detail.ProductID);
             ViewData["RequestID"] = purchase_Request_Detail.RequestID;
             return View(purchase_Request_Detail);
         }
@@ -70,7 +70,7 @@ namespace StockControl.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RequestID,ProductID,Quantity")] Purchase_Request_Detail purchase_Request_Detail)
+        public async Task<IActionResult> Edit(int id, [Bind("Request_DetailID,RequestID,ProductID,Quantity")] Purchase_Request_Detail purchase_Request_Detail)
         {
             if (id != purchase_Request_Detail.RequestID)
             {
@@ -131,7 +131,9 @@ namespace StockControl.Controllers
             var purchase_Request_Detail = await _context.Purchase_Request_Detail.FindAsync(id);
             if (purchase_Request_Detail != null)
             {
-                _context.Purchase_Request_Detail.Remove(purchase_Request_Detail);
+                //_context.Purchase_Request_Detail.Remove(purchase_Request_Detail);
+                purchase_Request_Detail.IsDeleted = true;
+                _context.Purchase_Request_Detail.Update(purchase_Request_Detail);
             }
 
             ViewData["RequestID"] = id;

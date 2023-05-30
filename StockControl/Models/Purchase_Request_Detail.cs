@@ -16,6 +16,9 @@ namespace StockControl.Models
 
         public int Quantity { get; set; }
 
+        public bool IsDeleted { get; set; } = false;
+
+
         [ForeignKey("ProductID")]
         public virtual Product Product { get; set; }
 

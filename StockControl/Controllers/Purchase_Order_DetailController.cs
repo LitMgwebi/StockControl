@@ -22,7 +22,7 @@ namespace StockControl.Controllers
         // GET: Purchase_Order_Detail/Create
         public IActionResult Create(string OrderID)
         {
-            ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductName");
+            ViewData["ProductID"] = new SelectList(_context.Products.Where(m => m.IsDeleted == false), "ProductID", "ProductName");
             ViewData["OrderID"] = OrderID;
             return View();
         }
@@ -38,7 +38,7 @@ namespace StockControl.Controllers
             await _context.SaveChangesAsync();
             //return RedirectToAction("Index", "Purchase_Order");
 
-            ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductName");
+            ViewData["ProductID"] = new SelectList(_context.Products.Where(m => m.IsDeleted == false), "ProductID", "ProductName");
             ViewData["OrderID"] = purchase_Order_Detail.OrderID;
             return View();
         }
@@ -56,7 +56,7 @@ namespace StockControl.Controllers
             {
                 return NotFound();
             }
-            ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductID", purchase_Order_Detail.ProductID);
+            ViewData["ProductID"] = new SelectList(_context.Products.Where(m => m.IsDeleted == false), "ProductID", "ProductID", purchase_Order_Detail.ProductID);
             ViewData["OrderID"] = purchase_Order_Detail.OrderID;
             return View(purchase_Order_Detail);
         }
@@ -127,7 +127,9 @@ namespace StockControl.Controllers
             var purchase_Order_Detail = await _context.Purchase_Order_Detail.FindAsync(id);
             if (purchase_Order_Detail != null)
             {
-                _context.Purchase_Order_Detail.Remove(purchase_Order_Detail);
+                //_context.Purchase_Order_Detail.Remove(purchase_Order_Detail);
+                purchase_Order_Detail.IsDeleted = true;
+                _context.Purchase_Order_Detail.Update(purchase_Order_Detail);
             }
 
             ViewData["OrderID"] = id;

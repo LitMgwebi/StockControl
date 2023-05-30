@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StockControl.Data;
 
@@ -11,9 +12,10 @@ using StockControl.Data;
 namespace StockControl.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230530135325_ChangesToModel")]
+    partial class ChangesToModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -180,9 +182,6 @@ namespace StockControl.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("ProductDescription")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -216,9 +215,6 @@ namespace StockControl.Data.Migrations
 
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("OrderDate")
                         .HasColumnType("date");
@@ -254,9 +250,6 @@ namespace StockControl.Data.Migrations
                     b.Property<int>("OrderID")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<decimal?>("Price")
                         .HasColumnType("money");
 
@@ -290,9 +283,6 @@ namespace StockControl.Data.Migrations
                     b.Property<string>("EmployeeUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("PurchaseRequestStatus")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -321,9 +311,6 @@ namespace StockControl.Data.Migrations
                     b.Property<int>("RequestID")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<int>("ProductID")
                         .HasColumnType("int");
 
@@ -344,9 +331,6 @@ namespace StockControl.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SupplierID"), 1L, 1);
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("SupplierAddress")
                         .IsRequired()

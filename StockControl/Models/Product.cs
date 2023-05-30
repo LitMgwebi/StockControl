@@ -35,6 +35,10 @@ namespace StockControl.Models
         [DisplayName("Supplier")]
         public int SupplierID { get; set; }
 
+        public bool IsDeleted { get; set; } = false;
+
+
+
         [ForeignKey("SupplierID")]
         public virtual Supplier Supplier { get; set; }
 

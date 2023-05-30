@@ -38,6 +38,10 @@ namespace StockControl.Models
         [DisplayFormat(DataFormatString = "R {0:c}")]
         public decimal? PurchaseRequestSubtotal { get; set; }
 
+        public bool IsDeleted { get; set; } = false;
+
+
+
         [ForeignKey("EmployeeID")]
         public virtual User User { get; set; }
 

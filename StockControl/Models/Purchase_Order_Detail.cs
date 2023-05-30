@@ -21,6 +21,9 @@ namespace StockControl.Models
         [DisplayFormat(DataFormatString = "R {0:c}")]
         public decimal? Price { get; set; }
 
+        public bool IsDeleted { get; set; } = false;
+
+
         [ForeignKey("ProductID")]
         public virtual Product Product { get; set; }
 

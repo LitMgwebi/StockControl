@@ -37,6 +37,7 @@ namespace StockControl.Models
 
         public string? Comment { get; set; }
 
+        public bool IsDeleted { get; set; } = false;
 
         public virtual Purchase_Order_Detail Purchase_Order_Detail { get; set; }
 
