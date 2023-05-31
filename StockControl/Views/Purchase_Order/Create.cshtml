@@ -5,9 +5,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Purchase_Order</h4>
+<h1>Create Purchase Order</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -52,12 +50,14 @@
                 <span asp-validation-for="Order.Comment" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <button type="submit" class="btn btn-primary">Create</button>
+                <button class="btn btn-secondary"><a asp-action="Index">Cancel</a></button>
             </div>
         </form>
     </div>
 
     <div class="col-md-8">
+        <h4>Submitted Purchase Requests</h4>
         <table class="table" id="myTable">
             <thead>
                 <tr>
@@ -93,9 +93,9 @@
                             @Html.DisplayFor(modelItem => item.PurchaseRequestSubtotal)
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-controller="Purchase_Request" asp-route-id="@item.RequestID">Edit</a> |
-                            <a asp-action="Details" asp-controller="Purchase_Request" asp-route-id="@item.RequestID">Details</a> |
-                            <a asp-action="Delete" asp-controller="Purchase_Request" asp-route-id="@item.RequestID">Delete</a>
+                            <a asp-action="Edit" class="btn btn-outline-success" asp-controller="Purchase_Request" asp-route-id="@item.RequestID">Edit</a> |
+                            <a asp-action="Details" class="btn btn-outline-info" asp-controller="Purchase_Request" asp-route-id="@item.RequestID">Details</a> |
+                            <a asp-action="Delete" class="btn btn-outline-danger" asp-controller="Purchase_Request" asp-route-id="@item.RequestID">Delete</a>
                         </td>
                     </tr>
                 }
@@ -103,10 +103,6 @@
         </table>
 
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

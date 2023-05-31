@@ -66,7 +66,7 @@ namespace StockControl.Controllers
         public async Task<IActionResult> Create()
         {
             ViewData["RequestID"] = new SelectList(_context.Purchase_Request.Where(m => m.IsDeleted == false), "RequestID", "RequestID");
-            ViewData["SupplierID"] = new SelectList(_context.Suppliers.Where(m => m.IsDeleted == false), "SupplierID", "SupplierID");
+            ViewData["SupplierID"] = new SelectList(_context.Suppliers.Where(m => m.IsDeleted == false), "SupplierID", "SupplierName");
             var date = DateTime.Now;
             ViewData["CurrentDate"] = date;
 
@@ -87,8 +87,9 @@ namespace StockControl.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderID,OrderDate,RequestID,PurchaseOrderTotal,PurchaseOrderSubtotal,SupplierID,PurchaseOrderProgress,Comment")] Purchase_Order purchase_Order)
+        public async Task<IActionResult> Create([Bind("OrderID,OrderDate,RequestID,PurchaseOrderTotal,PurchaseOrderSubtotal,SupplierID,PurchaseOrderProgress,Comment")] OrderRequestViewModel orderRequest)
         {
+            var purchase_Order = orderRequest.Order;
             _context.Add(purchase_Order);
             await _context.SaveChangesAsync();
             return RedirectToAction("Create", "Purchase_Order_Detail", new {OrderID = purchase_Order.OrderID});

@@ -278,3 +278,16 @@ C:\Users\lithi\OneDrive\Desktop\Github\StockControl\StockControl\bin\Debug\net6.
 C:\Users\lithi\OneDrive\Desktop\Github\StockControl\StockControl\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 C:\Users\lithi\OneDrive\Desktop\Github\StockControl\StockControl\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\lithi\OneDrive\Desktop\Github\StockControl\StockControl\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\lithi\OneDrive\Desktop\Github\StockControl\StockControl\bin\Debug\net6.0\itext.barcodes.dll
+C:\Users\lithi\OneDrive\Desktop\Github\StockControl\StockControl\bin\Debug\net6.0\itext.bouncy-castle-connector.dll
+C:\Users\lithi\OneDrive\Desktop\Github\StockControl\StockControl\bin\Debug\net6.0\itext.forms.dll
+C:\Users\lithi\OneDrive\Desktop\Github\StockControl\StockControl\bin\Debug\net6.0\itext.io.dll
+C:\Users\lithi\OneDrive\Desktop\Github\StockControl\StockControl\bin\Debug\net6.0\itext.kernel.dll
+C:\Users\lithi\OneDrive\Desktop\Github\StockControl\StockControl\bin\Debug\net6.0\itext.layout.dll
+C:\Users\lithi\OneDrive\Desktop\Github\StockControl\StockControl\bin\Debug\net6.0\itext.pdfa.dll
+C:\Users\lithi\OneDrive\Desktop\Github\StockControl\StockControl\bin\Debug\net6.0\itext.sign.dll
+C:\Users\lithi\OneDrive\Desktop\Github\StockControl\StockControl\bin\Debug\net6.0\itext.styledxmlparser.dll
+C:\Users\lithi\OneDrive\Desktop\Github\StockControl\StockControl\bin\Debug\net6.0\itext.svg.dll
+C:\Users\lithi\OneDrive\Desktop\Github\StockControl\StockControl\bin\Debug\net6.0\itext.commons.dll
+C:\Users\lithi\OneDrive\Desktop\Github\StockControl\StockControl\bin\Debug\net6.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\lithi\OneDrive\Desktop\Github\StockControl\StockControl\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll

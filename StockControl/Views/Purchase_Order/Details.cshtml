@@ -4,12 +4,11 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Purchase Order: @Html.DisplayFor(model => model.Purchase_Order.OrderID)</h1>
+<hr />
 
-<div>
-    <h4>Purchase_Order</h4>
-    <hr />
-    <dl class="row">
+<div class="row">
+    <dl class="col-md-7">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Purchase_Order.OrderDate)
         </dt>
@@ -53,6 +52,12 @@
             @Html.DisplayFor(model => model.Purchase_Order.Supplier.SupplierName)
         </dd>
     </dl>
+    <div class="col-md-5">
+        <a asp-action="Edit" asp-route-id="@Model?.Purchase_Order.OrderID">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+<div class="row">
     <table class="table" id="myTable">
         <thead>
             <tr>
@@ -82,16 +87,11 @@
                         @Html.DisplayFor(modelItem => item.Product.ProductName)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-controller="Purchase_Order_Detail" asp-route-id="@item.OrderID">Edit</a> |
-                        <a asp-action="Delete" asp-controller="Purchase_Order_Detail" asp-route-id="@item.OrderID">Delete</a>
+                        <a asp-action="Edit" class="btn btn-outline-success" asp-controller="Purchase_Order_Detail" asp-route-id="@item.OrderID">Edit</a>
+                        <a asp-action="Delete" class="btn btn-outline-danger" asp-controller="Purchase_Order_Detail" asp-route-id="@item.OrderID">Delete</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Purchase_Order.OrderID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
 </div>

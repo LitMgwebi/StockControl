@@ -4,12 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Purchase Orders</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table"  id="myTable">
+<table class="table" id="myTable">
     <thead>
         <tr>
             <th>
@@ -37,35 +37,36 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PurchaseOrderTotal)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PurchaseOrderSubtotal)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PurchaseOrderProgress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Comment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Purchase_Request.RequestID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Supplier.SupplierID)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.OrderID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.OrderID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.OrderID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchaseOrderTotal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchaseOrderSubtotal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchaseOrderProgress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Purchase_Request.RequestID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Supplier.SupplierID)
+                </td>
+                <td>
+                    <a asp-action="Edit" class="btn btn-outline-success" asp-route-id="@item.OrderID">Edit</a> |
+                    <a asp-action="Details" class="btn btn-outline-info" asp-route-id="@item.OrderID">Details</a> |
+                    <a asp-action="Delete" class="btn btn-outline-danger" asp-route-id="@item.OrderID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

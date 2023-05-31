@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Purchase Requests</h1>
 @if (User.IsInRole("Employee"))
 {
     <p>
@@ -33,30 +33,31 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RequestDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PurchaseRequestStatus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PurchaseRequestTotal)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PurchaseRequestSubtotal)
-            </td>
-            <td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchaseRequestStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchaseRequestTotal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchaseRequestSubtotal)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.User.FirstName)
                     @Html.DisplayFor(modelItem => item.User.LastName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.RequestID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.RequestID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.RequestID">Delete</a>
-            </td>
-        </tr>
-}
+                </td>
+                <td>
+                    <a asp-action="Edit" class="btn btn-outline-success" asp-route-id="@item.RequestID">Edit</a>
+                    <a asp-action="Details" class="btn btn-outline-info" asp-route-id="@item.RequestID">Details</a>
+                    <a asp-action="Delete" class="btn btn-outline-danger" asp-route-id="@item.RequestID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

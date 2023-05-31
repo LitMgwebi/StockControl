@@ -11,7 +11,7 @@ using StockControl.Models;
 
 namespace StockControl.Controllers
 {
-    [Authorize(Roles = "Purchase")]
+    [Authorize(Roles = "Purchase, Employee")]
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
