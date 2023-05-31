@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using StockControl.Models;
 
 namespace StockControl.Controllers
 {
+    [Authorize(Roles ="Purchase")]
     public class Purchase_OrderController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -61,13 +63,23 @@ namespace StockControl.Controllers
         }
 
         // GET: Purchase_Order/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             ViewData["RequestID"] = new SelectList(_context.Purchase_Request.Where(m => m.IsDeleted == false), "RequestID", "RequestID");
             ViewData["SupplierID"] = new SelectList(_context.Suppliers.Where(m => m.IsDeleted == false), "SupplierID", "SupplierID");
             var date = DateTime.Now;
             ViewData["CurrentDate"] = date;
-            return View();
+
+            var requests = await _context.Purchase_Request
+                .Where(m => m.IsDeleted == false)
+                .Where(p => p.PurchaseRequestStatus == "Submitted")
+                .ToListAsync();
+
+            OrderRequestViewModel orderRequest = new OrderRequestViewModel
+            {
+                Requests = requests,
+            };
+            return View(orderRequest);
         }
 
         // POST: Purchase_Order/Create

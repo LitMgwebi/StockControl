@@ -12,7 +12,7 @@ namespace StockControl.Controllers
 {
     public class Purchase_Request_DetailController : Controller
     {
-        private const double tax = 1.50;
+        private const double tax = 0.07;
         private readonly ApplicationDbContext _context;
 
         public Purchase_Request_DetailController(ApplicationDbContext context)
@@ -92,7 +92,21 @@ namespace StockControl.Controllers
 
             try
             {
+                var pr = await _context.Purchase_Request.FindAsync(purchase_Request_Detail.RequestID);
+                var product = await _context.Products.FindAsync(purchase_Request_Detail.ProductID);
+                decimal sub = pr.PurchaseRequestSubtotal.Value;
+                decimal total = pr.PurchaseRequestTotal.Value;
+                decimal productAmount = product.ProductPrice;
+
+                sub = sub + (purchase_Request_Detail.Quantity * productAmount);
+                total = total + sub + (sub * (decimal)tax);
+
+                pr.PurchaseRequestSubtotal = sub;
+                pr.PurchaseRequestTotal = total;
+
+                _context.Purchase_Request.Update(pr);
                 _context.Update(purchase_Request_Detail);
+                
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)

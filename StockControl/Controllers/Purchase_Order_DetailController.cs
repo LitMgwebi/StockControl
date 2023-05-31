@@ -88,23 +88,39 @@ namespace StockControl.Controllers
             {
                 return NotFound();
             }
-                try
+            try
+            {
+                var po = await _context.Purchase_Order.FindAsync(purchase_Order_Detail.OrderID);
+                var product = await _context.Products.FindAsync(purchase_Order_Detail.ProductID);
+                decimal sub = po.PurchaseOrderSubtotal.Value;
+                decimal total = po.PurchaseOrderTotal.Value;
+                decimal productAmount = product.ProductPrice;
+
+                decimal price = (decimal)purchase_Order_Detail.Quantity * productAmount;
+                sub = sub + price;
+                total = total + sub + (sub * (decimal)tax);
+
+                po.PurchaseOrderSubtotal = sub;
+                po.PurchaseOrderTotal = total;
+                purchase_Order_Detail.Price = price;
+
+                _context.Purchase_Order.Update(po);
+                _context.Update(purchase_Order_Detail);
+
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!Purchase_Order_DetailExists(purchase_Order_Detail.OrderID))
                 {
-                    _context.Update(purchase_Order_Detail);
-                    await _context.SaveChangesAsync();
+                    return NotFound();
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!Purchase_Order_DetailExists(purchase_Order_Detail.OrderID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    throw;
                 }
-                return RedirectToAction("Details", "Purchase_Order", new {id = purchase_Order_Detail.OrderID});
+            }
+            return RedirectToAction("Details", "Purchase_Order", new { id = purchase_Order_Detail.OrderID });
             /*ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductID", purchase_Order_Detail.ProductID);
             ViewData["OrderID"] = new SelectList(_context.Purchase_Order, "OrderID", "OrderID", purchase_Order_Detail.OrderID);
             return View(purchase_Order_Detail);*/

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using StockControl.Models;
 
 namespace StockControl.Controllers
 {
+    [Authorize(Roles ="Employee, Purchase")]
     public class Purchase_RequestController : Controller
     {
         private readonly ApplicationDbContext _context;

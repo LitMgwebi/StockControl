@@ -25,17 +25,29 @@
             </div>
             <div class="form-group">
                 <label asp-for="PurchaseRequestStatus" class="control-label"></label>
-                <input asp-for="PurchaseRequestStatus" class="form-control" />
+                @if (User.IsInRole("Purchase"))
+                {
+                    <select asp-for="PurchaseRequestStatus" class="form-control">
+                        <option>Submitted</option>
+                        <option>In Progress</option>
+                        <option>Complete</option>
+                    </select>
+                }
+                @if (User.IsInRole("Employee"))
+                {
+                    <input asp-for="PurchaseRequestStatus" class="form-control" readonly />
+                }
+                
                 <span asp-validation-for="PurchaseRequestStatus" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PurchaseRequestTotal" class="control-label"></label>
-                <input asp-for="PurchaseRequestTotal" class="form-control" />
+                <input asp-for="PurchaseRequestTotal" class="form-control" readonly/>
                 <span asp-validation-for="PurchaseRequestTotal" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PurchaseRequestSubtotal" class="control-label"></label>
-                <input asp-for="PurchaseRequestSubtotal" class="form-control" />
+                <input asp-for="PurchaseRequestSubtotal" class="form-control" readonly/>
                 <span asp-validation-for="PurchaseRequestSubtotal" class="text-danger"></span>
             </div>
             <div class="form-group">

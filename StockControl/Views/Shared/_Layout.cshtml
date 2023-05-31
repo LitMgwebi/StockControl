@@ -31,29 +31,28 @@
                             @if (User.IsInRole("Purchase"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Suppliers" asp-action="Index">Supplier</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Suppliers" asp-action="Index">Suppliers</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Purchase_Order" asp-action="Index">Purchase Order</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Purchase_Order" asp-action="Index">Orders</a>
                                 </li>
-
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Product</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Products</a>
                                 </li>
                             }
                             @if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Employees" asp-action="Index">Employee Administration</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Employees" asp-action="Index">Administration</a>
                                 </li>
                             }
                             @if (User.IsInRole("Employee"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Purchase_Request" asp-action="Index">Purchase Request</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Purchase_Request" asp-action="Index">Requests</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Product</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Products</a>
                                 </li>
                             }
                         }

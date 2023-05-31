@@ -1,4 +1,5 @@
-﻿@model StockControl.Models.Purchase_Order
+﻿@model StockControl.Models.OrderRequestViewModel
+
 
 @{
     ViewData["Title"] = "Create";
@@ -12,48 +13,95 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input asp-for="OrderID" type="hidden" value="ViewBag.OrderID" />
+            <input asp-for="Order.OrderID" type="hidden" value="ViewBag.OrderID" />
             <div class="form-group">
-                <label asp-for="OrderDate" class="control-label"></label>
-                <input asp-for="OrderDate" type="datetime" class="form-control" value="@ViewBag.CurrentDate" readonly />
-                <span asp-validation-for="OrderDate" class="text-danger"></span>
+                <label asp-for="Order.OrderDate" class="control-label"></label>
+                <input asp-for="Order.OrderDate" type="datetime" class="form-control" value="@ViewBag.CurrentDate" readonly />
+                <span asp-validation-for="Order.OrderDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="RequestID" class="control-label"></label>
-                <select asp-for="RequestID" class ="form-control" asp-items="ViewBag.RequestID"></select>
+                <label asp-for="Order.RequestID" class="control-label"></label>
+                <select asp-for="Order.RequestID" class="form-control" asp-items="ViewBag.RequestID"></select>
             </div>
             <div class="form-group">
-                <label asp-for="PurchaseOrderTotal" class="control-label"></label>
-                <input asp-for="PurchaseOrderTotal" class="form-control" value="0" readonly />
-                <span asp-validation-for="PurchaseOrderTotal" class="text-danger"></span>
+                <label asp-for="Order.PurchaseOrderTotal" class="control-label"></label>
+                <input asp-for="Order.PurchaseOrderTotal" class="form-control" value="0" readonly />
+                <span asp-validation-for="Order.PurchaseOrderTotal" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PurchaseOrderSubtotal" class="control-label"></label>
-                <input asp-for="PurchaseOrderSubtotal" class="form-control" value="0" readonly />
-                <span asp-validation-for="PurchaseOrderSubtotal" class="text-danger"></span>
+                <label asp-for="Order.PurchaseOrderSubtotal" class="control-label"></label>
+                <input asp-for="Order.PurchaseOrderSubtotal" class="form-control" value="0" readonly />
+                <span asp-validation-for="Order.PurchaseOrderSubtotal" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SupplierID" class="control-label"></label>
-                <select asp-for="SupplierID" class ="form-control" asp-items="ViewBag.SupplierID"></select>
+                <label asp-for="Order.SupplierID" class="control-label"></label>
+                <select asp-for="Order.SupplierID" class="form-control" asp-items="ViewBag.SupplierID"></select>
             </div>
             <div class="form-group">
-                <label asp-for="PurchaseOrderProgress" class="control-label"></label>
-                <select asp-for="PurchaseOrderProgress" class="form-control">
+                <label asp-for="Order.PurchaseOrderProgress" class="control-label"></label>
+                <select asp-for="Order.PurchaseOrderProgress" class="form-control">
                     <option>In Complete</option>
                     <option>Complete</option>
                     <option>In Progress</option>
                 </select>
-                <span asp-validation-for="PurchaseOrderProgress" class="text-danger"></span>
+                <span asp-validation-for="Order.PurchaseOrderProgress" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Comment" class="control-label"></label>
-                <input asp-for="Comment" class="form-control" />
-                <span asp-validation-for="Comment" class="text-danger"></span>
+                <label asp-for="Order.Comment" class="control-label"></label>
+                <input asp-for="Order.Comment" class="form-control" />
+                <span asp-validation-for="Order.Comment" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
+    </div>
+
+    <div class="col-md-8">
+        <table class="table" id="myTable">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Request.RequestID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Request.PurchaseRequestStatus)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Request.PurchaseRequestTotal)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Request.PurchaseRequestSubtotal)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Requests)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RequestID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PurchaseRequestStatus)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PurchaseRequestTotal)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PurchaseRequestSubtotal)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-controller="Purchase_Request" asp-route-id="@item.RequestID">Edit</a> |
+                            <a asp-action="Details" asp-controller="Purchase_Request" asp-route-id="@item.RequestID">Details</a> |
+                            <a asp-action="Delete" asp-controller="Purchase_Request" asp-route-id="@item.RequestID">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
     </div>
 </div>
 
@@ -62,5 +110,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
