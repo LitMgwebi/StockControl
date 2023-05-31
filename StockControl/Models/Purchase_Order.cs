@@ -35,6 +35,7 @@ namespace StockControl.Models
         [StringLength(50)]
         public string? PurchaseOrderProgress { get; set; }
 
+        [Display(Name ="Comment", Prompt ="Please enter a comment for this Purchase Order")]
         public string? Comment { get; set; }
 
         public bool IsDeleted { get; set; } = false;

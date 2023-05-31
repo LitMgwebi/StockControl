@@ -17,14 +17,15 @@ namespace StockControl.Models
         [Key]
         public int ProductID { get; set; }
 
+        [Display(Name ="Barcode", Prompt ="Please enter the barcode of the product")]
         [StringLength(50)]
         public string Barcode { get; set; }
 
-        [DisplayName("Name")]
+        [Display(Name ="Name", Prompt ="Please enter the name of the product")]
         [StringLength(50)]
         public string ProductName { get; set; }
 
-        [DisplayName("Description")]
+        [Display(Name ="Description", Prompt ="Please enter a description of this product")]
         [StringLength(100)]
         public string ProductDescription { get; set; }
 

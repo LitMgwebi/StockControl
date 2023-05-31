@@ -15,21 +15,21 @@ namespace StockControl.Models
 
         public int SupplierID { get; set; }
 
-        [DisplayName("Name")]
+        [Display(Name ="Name", Prompt ="Please enter the Name of the Supplier")]
         [StringLength(50)]
         public string SupplierName { get; set; }
 
-        [DisplayName("Email")]
+        [Display(Name ="Email", Prompt ="Please enter the Supplier's email address")]
         [EmailAddress(ErrorMessage = "Please enter an email address")]
         public string SupplierEmail { get; set; }
 
-        [DisplayName("Contact Number")]
+        [Display(Name="Contact Number", Prompt ="Please enter the Supplier's Contact Number")]
         public string SupplierContactNumber { get; set; }
 
-        [DisplayName("Address")]
+        [Display(Name="Address", Prompt =$"Please enter the Supplier's physical address ")]
         public string SupplierAddress { get; set; }
 
-        [DisplayName("Url")]
+        [Display(Name ="Url", Prompt ="Please enter the Supplier's URL")]
         [Url(ErrorMessage = "Please enter a proper URL.")]
         public string SupplierUrl { get; set; }
 

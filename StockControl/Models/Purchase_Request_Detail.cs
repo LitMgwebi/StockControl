@@ -14,6 +14,7 @@ namespace StockControl.Models
         [DisplayName("Product")]
         public int ProductID { get; set; }
 
+        [Display(Name = "Quantity", Prompt = "Please enter the quantity")]
         public int Quantity { get; set; }
 
         public bool IsDeleted { get; set; } = false;
