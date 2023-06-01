@@ -87,7 +87,7 @@ namespace StockControl.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderID,OrderDate,RequestID,PurchaseOrderTotal,PurchaseOrderSubtotal,SupplierID,PurchaseOrderProgress,Comment")] OrderRequestViewModel orderRequest)
+        public async Task<IActionResult> Create(OrderRequestViewModel orderRequest)
         {
             var purchase_Order = orderRequest.Order;
             _context.Add(purchase_Order);
