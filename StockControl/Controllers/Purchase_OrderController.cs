@@ -87,12 +87,12 @@ namespace StockControl.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(OrderRequestViewModel orderRequest)
+        public async Task<IActionResult> Create(OrderRequestViewModel purchase_Order)
         {
-            var purchase_Order = orderRequest.Order;
-            _context.Add(purchase_Order);
+   //         var purchase_Order = orderRequest.Order;
+            _context.Add(purchase_Order.Order);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Create", "Purchase_Order_Detail", new {OrderID = purchase_Order.OrderID});
+            return RedirectToAction("Create", "Purchase_Order_Detail", new {OrderID = purchase_Order.Order.OrderID});
             /*ViewData["RequestID"] = new SelectList(_context.Purchase_Request, "RequestID", "RequestID", purchase_Order.RequestID);
             ViewData["SupplierID"] = new SelectList(_context.Suppliers, "SupplierID", "SupplierID", purchase_Order.SupplierID);
             return View(purchase_Order);*/

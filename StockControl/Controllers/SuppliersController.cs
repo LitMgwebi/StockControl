@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using iText.Layout;
+using iText.Layout.Element;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -158,6 +160,48 @@ namespace StockControl.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        /*public void DownloadPDF()
+        {
+            Document document = new Document();
+            document.Open()
+            try
+            {
+                Paragraph heading = new Paragraph("Supplier");
+                heading.SetUnderline(0.5f, -1f);
+                document.Add(heading);
+
+                Table table = new Table(2, true);
+                List<Supplier> suppliers = _context.Suppliers.ToList();
+
+                Cell cell = new Cell().Add(new Paragraph("Supplier Name"));
+                cell.SetBold();
+                table.AddCell(cell);
+                cell = new Cell().Add(new Paragraph("Supplier Email"));
+                cell.SetBold();
+                table.AddCell(cell);
+
+                foreach(var x in suppliers)
+                {
+                    var supplierName = new Paragraph(x.SupplierName);
+                    var supplierEmail = new Paragraph(x.SupplierEmail);
+
+                    var column1 = new Cell().Add(supplierName);
+                    var column2 = new Cell().Add(supplierName);
+                    table.AddCell(column1);
+                    table.AddCell(column2);
+                }
+                DateTime currentDate = DateTime.Now;
+                Paragraph dateParagraph = new Paragraph($"Created Date: {currentDate.ToString("yyyy-MM-dd")}");
+                dateParagraph.SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.LEFT);
+                document.Add(dateParagraph);
+                document.Add(table);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+        }*/
         private bool SupplierExists(int id)
         {
           return (_context.Suppliers?.Any(e => e.SupplierID == id)).GetValueOrDefault();
